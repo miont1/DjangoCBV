@@ -4,4 +4,4 @@ from .models import Recipe
 
 # Register your models here.
 
-admin.register(Recipe)
+admin.site.register(Recipe)

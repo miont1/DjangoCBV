@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h2>Додати новий рецепт</h2>
+<form method="post" id="create-recipe-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Зберегти</button>
+</form>
+
+<script>
+    document.getElementById('create-recipe-form').addEventListener('submit', function(event) {
+        event.preventDefault();  // Запобігаємо стандартному відправленню форми
+        
+        const formData = new FormData(this);
+
+        axios.post('{% url "recipe-create" %}', formData, {
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+            .then(function (response) {
+                if (response.data.success) {
+                    // Якщо рецепт створено успішно, перенаправляємо на головну сторінку
+                    window.location.href = '{% url "recipe-list" %}';
+                } else {
+                    // Виводимо помилки, якщо є
+                    alert('Сталася помилка при створенні рецепта!');
+                }
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+                alert('Щось пішло не так. Спробуйте ще раз.');
+            });
+    });
+</script>
+{% endblock %}
