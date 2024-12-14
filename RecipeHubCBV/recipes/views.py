@@ -3,7 +3,7 @@ import logging
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from .models import Recipe
 from .forms import CreateRecipe
 
@@ -24,6 +24,15 @@ class RecipeList(ListView):
         context = super().get_context_data(**kwargs)
         context["recipe_count"] = Recipe.objects.count()
         return context
+
+
+class RecipeView(DetailView):
+    model = Recipe
+    template_name = "recipes/recipe.html"
+    context_object_name = "recipe"
+
+    def get_object(self, queryset=None):
+        return Recipe.objects.get(pk=self.kwargs["pk"])
 
 
 class RecipeCreate(CreateView):

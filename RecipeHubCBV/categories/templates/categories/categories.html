@@ -10,14 +10,24 @@
             <th>#</th>
             <th>Назва</th>
             <th>Опис</th>
+            <th>Доступні рецепти</th>
         </tr>
     </thead>
     <tbody>
-        {% for categorie in categories %}
+        {% for category  in categories %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ categorie.name }}</td>
-            <td>{{ categorie.description}}</td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.description}}</td>
+            <td> {% for recipe in category.recipes.all %}
+                  <h4><a href="{% url 'recipe-view' recipe.id %}">{{ recipe.title }}</a></h4>
+                  <p>{{ recipe.description }}</p>
+              {% empty %}
+                <li>Ця категорія поки що не містить рецептів.</li>
+              {% endfor %}
+            </td>
+
+                
         </tr>
         {% endfor %}
     </tbody>

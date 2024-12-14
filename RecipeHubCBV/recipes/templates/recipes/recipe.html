@@ -2,12 +2,9 @@
 
 {% block content %}
 <h1 class="text-center">{{ page_title }}</h1>
-<p>Загальна кількість рецептів: {{ recipe_count }}</p>
-
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>#</th>
             <th>Назва</th>
             <th>Опис</th>
             <th>Власник</th>
@@ -15,15 +12,12 @@
         </tr>
     </thead>
     <tbody>
-        {% for recipe in recipes %}
         <tr>
-            <td>{{ forloop.counter }}</td>
-            <td><a href="{% url 'recipe-view' recipe.id %}"> {{ recipe.title }}</td>
+            <td>{{ recipe.title }}</td>
             <td>{{ recipe.description}}</td>
             <td>{{ recipe.owner }}</td>
             <td>{{ recipe.created_at|date:"d.m.Y H:i" }}</td>
         </tr>
-        {% endfor %}
     </tbody>
 </table>
 {% endblock %}
