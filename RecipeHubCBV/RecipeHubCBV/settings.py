@@ -130,5 +130,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 GRAPHENE = {
-    "SCHEMA": "RecipeHubCBV.schema.schema"  # Змінюємо на шлях до вашого schema.py
+    "SCHEMA": "RecipeHubCBV.schema.schema" 
 }
